@@ -1,68 +1,109 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Ac_1107 {
 
-	public static void main(String[] args) {
+		static int Button[];
+		static int result;
+		static int to;
+		static boolean isnext;
+		static int cur;
+	
+	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
-		Scanner in = new Scanner(System.in);
-		String n = in.nextLine();
-		int m = in.nextInt();
-		ArrayList<Integer> arr  = new ArrayList<>();
-		int check[] = new int[10];
-		int cnt=0;
-		int findsmall=0, findbig=0;
-		int c=0;
-		int temp=0;
-		for(int i=0; i<m; i++)
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		
+		to = Integer.parseInt(in.readLine());
+		int malcnt = Integer.parseInt(in.readLine());
+		Button = new int[10];
+		
+		if(malcnt != 0)
 		{
-			check[in.nextInt()] = 1;
+			String temp[] = in.readLine().split(" ");
+			for(int i=0; i<malcnt; i++)
+			{
+				Button[Integer.parseInt(temp[i])] = 1;
+			}
 		}
 		
-	/*	for(int i=0; i<check.length; i++)
-		{
-			System.out.println(check[i]);
-		}*/
-			
-		if( m == 0)
-		{
-			if( Integer.parseInt(n) == 100)
-				cnt=0;
-			else
-			cnt = n.length();
-		}		
-		else //m > 0
-		{
-			//findsmall
-			for(int i=Integer.parseInt(n)-1; i>=0; i--)
+		boolean leftok,rightok;
+		leftok =false;
+		rightok = false;
+		int left=to,right=to;
+		cur=100;
+		
+		while(true)
+		{			
+			if (to == cur)
 			{
-				for(int j=0; j<Integer.toString(i).length(); j++)
-				{
-					if(check[Integer.parseInt(""+Integer.toString(i).charAt(j))] == 1)
-						break;
-					else 
-						findsmall = i;
-				}
-			}
-			//findbig
-			for(int i=Integer.parseInt(n)+1; i<=1000000; i++)
-			{
-				for(int j=0; j<Integer.toString(i).length(); j++)
-				{
-					if(check[Integer.parseInt(""+Integer.toString(i).charAt(j))] == 1)
-						break;
-					else 
-						findsmall = i;
-				}
+				break;
 			}
 			
-			c = ( Math.abs(Integer.parseInt(n)-findsmall) > Math.abs(Integer.parseInt(n)-findbig))?findbig:findsmall;
-			System.out.println(c);
+			result = 0;
+			
+			
+			
+			
+			isnext = true;
+			leftok = check(left);
+			System.out.println("left : "+left+"leftok : ");
+			if(leftok)
+			{				
+				if(isnext)
+					result+= Math.abs(left-to);
+				break;
+			}
+			
+			isnext = true;
+			rightok = check(right);
+			System.out.println("right : "+right+" rightok : "+rightok);
+			if(rightok)
+			{			
+				if(isnext)
+					result+= Math.abs(right-to);
+				break;		
+			}
+			
+			
+			
+			
+			left -= 1;
+			right += 1;
+			
+			
 			
 		}
 		
-		System.out.println(cnt);
-
+		System.out.println(result);
+		
+	}
+	
+	public static boolean check(int num)
+	{
+		String tem;
+		tem = Integer.toString(num);
+		
+		for(int i=0; i<tem.length(); i++)
+		{
+			if( Button[Integer.parseInt(""+tem.charAt(i))] == 1 )
+			{
+				return false;
+			}
+				
+		}
+		if(Math.abs(to-cur) < tem.length())
+		{
+			isnext = false;
+			result += to-num;
+		}
+		else
+		{
+			result += tem.length();
+		}
+		
+		return true;
 	}
 
 }
+
+//킁 ... 리모컨 

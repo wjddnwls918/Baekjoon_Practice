@@ -1,14 +1,15 @@
-
 public class Ac_10172 {
 
-	public static void main(String[] args) 
+	public static void main(String[] args) throws Exception
 	{
-		System.out.println("|\\_/|     ");
-		System.out.println("|q p|   /}");
-		System.out.println("( 0 )"+'"'+'"'+'"'+"\\ ");
-		System.out.println("|"+'"'+"^"+'"'+"`    |");
-		System.out.println("||_/=\\"+"\\__"+'|');
-				
+		// TODO Auto-generated method stub
+		 System.out.print("|\\_/|\n"); 
+		 System.out.print("|q p|   /}\n");
+		 System.out.print("( 0 )\"\"\"\\\n");
+		 System.out.print("|\"^\"`    |\n");
+		 System.out.print("||_/=\\\\__|");
+	
+		
 	}
 
 }

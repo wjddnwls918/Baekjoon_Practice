@@ -1,59 +1,58 @@
-import java.util.LinkedList;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Stack;
 
 public class Ac_9012 {
-	
-	public static void main(String[] args) {
+
+	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		Scanner in = new Scanner(System.in);
-		int n = in.nextInt();
-		in.nextLine();
-		String temp="";
-	    boolean result;
-		Stack <Character>stk = new Stack();
-		char ch =0;
-		while(n-- >0)
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		int t = Integer.parseInt(in.readLine());
+		String str;
+		Stack<Character> stk;
+		boolean result;
+		for(int x=1; x<=t; x++)
 		{
-			result = true;
-			temp = in.nextLine();			
+			str = in.readLine();
 			
-			for(int i=0; i<temp.length(); i++)
+			stk = new Stack();
+			
+			
+			result = true;
+			for(int i=0; i<str.length(); i++)
 			{
-				if(temp.charAt(i) == '(')
+				if(str.charAt(i) == '(')
 				{
 					stk.push('(');
-				}			
-				else if( temp.charAt(i) == ')')
-				{	
+				}
+				else if(str.charAt(i) == ')')
+				{
 					if(stk.isEmpty())
+					{
+						result = false;
+						break;
+					}
+					char temp = stk.pop();
+					if(temp != '(')
 					{
 						result =false;
 						break;
 					}
-					else if( stk.peek() == '(')
-					{						
-						stk.pop();
-					}												
-				}				
-			}			
+					
+				}
+			}
 			
-			if(stk.size()>0)
-				result =false;
-			
-			if( result)
+			if(!stk.isEmpty())
+				result = false;
+				
+			if(result)
 				System.out.println("YES");
 			else
 				System.out.println("NO");
 			
-			stk.clear();
-
 		}
+		
+
 	}
 
 }
-
-
-//¡§¥‰¿Œµ• // øﬂƒ… «Ï∏Ã¡ˆ ..
-
-//9836kb , 123ms
