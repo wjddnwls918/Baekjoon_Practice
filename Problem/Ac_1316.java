@@ -7,55 +7,78 @@ public class Ac_1316 {
 		// TODO Auto-generated method stub
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		
-		int num = Integer.parseInt(in.readLine());
-		String str[] = new String[num];
-		
-		int check[];
-		int cnt= 0;
-		
-		
-		//-97
-		boolean outflag = false;
-		for(int i=0; i<num; i++)
-		{
-			str[i] = in.readLine();
+		int N = Integer.parseInt(in.readLine());
+		String str[] = new String[N];
+		for(int i=0; i<N; i++) {
 			
-			check = new int[26];
+			str[i] = in.readLine();	
+			
+		}
 		
-			int j=0;
-			for(; j<str[i].length(); j++)
-			{
-				//System.out.print((int)str[i].charAt(j)-97+" "); 
-				
-				if(check[ (int)str[i].charAt(j)-97 ] == 1)
-				{
-					outflag = true;
-					break;
-				}
-				check[ (int)str[i].charAt(j)-97] = 1;
-				char cur = str[i].charAt(j);
-				int k = j;
-				while(true)
-				{
-					if(k==str[i].length() )
-						break;
-					if(cur != str[i].charAt(k))
-					{
-						j = k-1;
-						break;
-					}
-					k++;
+		boolean alphaFlag[];
+		int cnt = 0;
+		for(int i=0; i<N; i++) {
+			String cur = str[i];
+			//System.out.println(cur);
+			alphaFlag = new boolean[26];
+			
+			
+			alphaFlag[cur.charAt(0)-'a']= true;
+			char tem = cur.charAt(0);			
 						
-				}
-				
-				
+			boolean isOk = true;
+			
+			if(cur.length() == 1) {
+				cnt++;
+				continue;
+			}
+			
+			else {
+				for(int j=1; j<cur.length(); j++) {
+					
+					//System.out.println("check");
+					//같지 않으면
+					if(tem != cur.charAt(j)) {
+						
+						//System.out.println("check2");
+						
+						if( alphaFlag[cur.charAt(j)-'a'] ) {
+							
+							//System.out.println("check3");
+							isOk = false;
+							break;
+						}else {
+							
+							alphaFlag[cur.charAt(j)-'a'] = true;
+							tem = cur.charAt(j);
+							
+						}
+						
+					}else {
+					
+					//같으면 
+						while(true) {
+							
+							if(j+1 >= cur.length() || cur.charAt(j+1) != tem )
+								break;
+							j++;
+						}
+						
+					}
+					//System.out.print(j);
+					
+				}		
 				
 			}
-			//System.out.println();
 			
-			if(j == str[i].length())
+			
+			if( isOk ) {
+				//System.out.println(i);
 				cnt++;
+			}
+			
 		}
+		
 		
 		System.out.println(cnt);
 		
