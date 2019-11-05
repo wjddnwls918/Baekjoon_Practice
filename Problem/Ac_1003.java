@@ -1,47 +1,48 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class Ac_1003 {
 
-	public static int num1 =0;
-	public static int num2 =0;
-	
-	public static void main(String[] args) {
+	static int num0Cnt[];
+	static int num1Cnt[];
+
+	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		Scanner in = new Scanner(System.in);
-		int num = in.nextInt();
-		int arr[] = new int[num];
-		for(int i=0; i<num; i++)
-			arr[i] = in.nextInt();
-		
-		
-		for(int i=0; i<num; i++)
-		{
-			fib(arr[i]);
-			
-			System.out.println(num1 + " " +num2);			
-			num1=0;
-			num2=0;
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		int T = Integer.parseInt(in.readLine());
+
+		num0Cnt = new int[41];
+		num1Cnt = new int[41];
+
+		num0Cnt[0] = 1;
+		num1Cnt[0] = 0;
+
+		num0Cnt[1] = 0;
+		num1Cnt[1] = 1;
+
+		num0Cnt[2] = 1;
+		num1Cnt[2] = 1;
+
+		num0Cnt[3] = 1;
+		num1Cnt[3] = 2;
+					
+		for(int i=4; i<=40; i++) {
+			num0Cnt[i] += ( num0Cnt[i-1] + num0Cnt[i-2]);
+			num1Cnt[i] += ( num1Cnt[i-1] + num1Cnt[i-2]);
 		}
 		
+
+		for (int i = 0; i < T; i++) {
+		
+			int num = Integer.parseInt(in.readLine());			
+		
+			System.out.println(num0Cnt[num] + " " + num1Cnt[num]);
+
+		}
+
 	}
 
-	public static int fib(int n)
-	{
-		if (n ==0)
-		{
-			num1++;
-			return 0;
-		}
-		else if(n ==1)
-		{
-			num2++;
-			return 1;
-		}
-		else
-		{
-			return fib(n-1) + fib(n-2);
-		}
-	}
 }
 
-//성공  인데 코드길이는 짧은편인데 메모리랑 속도가 조금 걸리네 
+// 정답

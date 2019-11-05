@@ -2,7 +2,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -11,10 +13,9 @@ public class Ac_15663 {
 		static int N,M;
 	
 		static int num[];
-		static int check[];		
-		static int combi[];
+		static int check[];			
 		
-		static List<String> list;
+		static LinkedHashSet<String> set;
 		
 	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
@@ -25,8 +26,8 @@ public class Ac_15663 {
 		M = Integer.parseInt(temp[1]);
 		
 		num = new int[N];
-		check = new int[10001];
-		combi = new int[N];
+		check = new int[N];
+		
 		
 		temp = in.readLine().split(" ");
 		for(int i=0; i<N; i++) {
@@ -34,40 +35,29 @@ public class Ac_15663 {
 		}
 		Arrays.sort(num);
 		
-		list = new ArrayList<>();
+		set = new LinkedHashSet();
 		
-		dfs(0);		
+		dfs(0,"");		
 
-		
-		for(int i=0; i<list.size(); i++) {
-			System.out.println(list.get(i));
+		Iterator<String> itr = set.iterator();
+		while(itr.hasNext()) {
+			System.out.println(itr.next());
 		}
 		
 	}
 	
-	public static void dfs(int depth) {
+	public static void dfs(int depth, String s) {
 		
-		if( depth == M) {
-			String temp = "";
-			
-			for(int i=0; i<M; i++) {
-				temp += combi[i];
-					
-				if(i != M-1)
-					temp += " ";					
-			}
-			
-			if(!list.contains(temp))
-				list.add(temp);
+		if( depth == M) {		
+			set.add(s);
+			return;
 			
 		} else {
 			
 			for(int i=0; i<N; i++) {
-				if(check[i] != 1 && combi[depth] == 0) {
-					check[i] = 1;
-					combi[depth] = num[i];
-					dfs(depth+1);
-					combi[depth] = 0;
+				if(check[i] != 1) {
+					check[i] = 1;					
+					dfs(depth+1, s+num[i]+" ");					
 					check[i] = 0;
 				}
 			}			
@@ -78,4 +68,5 @@ public class Ac_15663 {
 }
 
 
-//... 몰.. 시간초과
+//정답
+//LinkedHashSet이 들어간대로 넣는거네 

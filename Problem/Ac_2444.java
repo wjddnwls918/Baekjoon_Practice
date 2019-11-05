@@ -1,39 +1,47 @@
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Ac_2444 {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
-		Scanner in = new Scanner(System.in);
+	
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder out = new StringBuilder();
 		
-		int n,flag,temp,total;
+		int N = Integer.parseInt(in.readLine());
 		
-		n = in.nextInt();
-		flag =0;
-		temp =0;
-		total = 2* n - 1;
+		int size = 2*N - 1;
 		
-		for(int i=n; i>0; i--)
-		{
-			temp = 2*i - 1 ;
-			for(int j=0; j<total; j++)
-			{
-				if( j >= total- (temp/2))
-				{
+		int start = size / 2;
+		int total = 2* (N - start) - 1;
+		for(int i=0; i<size; i++) {
+			int count = 0;
+			for(int j=0; j<size; j++) {
+				
+				if(count >= total)
 					break;
-				}
-				else if( j < temp/2)
-				{
-					System.out.print(" ");
-				}
-				else
-				{
-					System.out.print("*");
-				}				
+				
+				if(j>=start && count < total) {
+					out.append("*");
+					count+=1;
+				} else 
+					out.append(" ");
 			}
-			System.out.println();
-			flag +=2;
+			out.append("\n");
+					
+			if(i < size / 2) {
+				start -=1;
+			} else {
+				start +=1;
+			}
+			
+			total = 2*(N - start) - 1;
+			
 		}
+		
+		
+		System.out.println(out);
 		
 	}
 
